@@ -4,7 +4,7 @@ public class Tv extends Product{
 
 	private int inch;
 	private String type;
-	
+	 
 	public Tv() {
 		// TODO Auto-generated constructor stub
 	}
