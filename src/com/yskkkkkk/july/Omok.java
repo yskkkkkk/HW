@@ -15,7 +15,7 @@ public class Omok {
 			for (int j = 0; j < omok[i].length; j++) {
 				omok[i][j] = sc.nextInt();
 			}
-		}  
+		}    
 		sc.close();
 		
 		int x = 0;
