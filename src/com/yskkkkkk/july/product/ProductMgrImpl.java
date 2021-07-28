@@ -93,4 +93,37 @@ public class ProductMgrImpl implements IProductMgr{
 		DecimalFormat decimalFormat = new DecimalFormat("###,###");
 		return decimalFormat.format(total);
 	}
+	
+	@Override
+	public ArrayList<Refrigerator> overInputCapacity(int capacity) {
+		ArrayList<Refrigerator> result = new ArrayList<>();
+		for (Refrigerator refrigerator : selectRefrigerator()) {
+			if (refrigerator.getCapacity() >= capacity) {
+				result.add(refrigerator);
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public ArrayList<Tv> overInputInch(int inch) {
+		ArrayList<Tv> result = new ArrayList<>();
+		for (Tv tv : selectTv()) {
+			if (tv.getInch() >= inch) {
+				result.add(tv);
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public void updateProductPrice(int productNo, String price) {
+		for (Product product : products) {
+			if (product.getProductNo() == productNo) {
+				product.setPrice(new BigDecimal(price));
+				break;
+			}
+		}
+	}
+	
 }

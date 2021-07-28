@@ -4,21 +4,21 @@ import java.math.BigDecimal;
 
 public class Refrigerator extends Product{
 	
-	private String capacity;
+	private int capacity;
 	
 	public Refrigerator() {
 	}
 
-	public Refrigerator(int productNo, String name, BigDecimal price, int amount, String capacity) {
+	public Refrigerator(int productNo, String name, BigDecimal price, int amount, int capacity) {
 		super(productNo, name, price, amount);
 		this.capacity = capacity;
 	}
 
-	public String getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(String capacity) {
+	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 
@@ -28,7 +28,7 @@ public class Refrigerator extends Product{
 				", name=" + super.getName() + 
 				", price=" + super.getPrice() + 
 				", amount=" + super.getAmount() + 
-				", capacity=" + capacity+"]";
+				", capacity=" + capacity+"L ]";
 	}
 	
 }

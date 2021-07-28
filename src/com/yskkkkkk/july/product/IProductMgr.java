@@ -28,4 +28,12 @@ public interface IProductMgr {
 	// 전체 재고 상품 금액을 구하는 기능
 	public String getTotalPrice();
 	
+	// 400L 이상의 Refrigerator 검색
+	public ArrayList<Refrigerator> overInputCapacity(int capacity);
+	
+	// 50inch 이상의 TV검색
+	public ArrayList<Tv> overInputInch(int inch);
+	
+	// 상품번호와 가격을 입력 받아 상품 가격을 변경할 수 있는 기능
+	public void updateProductPrice(int productNo, String price);
 }
