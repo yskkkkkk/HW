@@ -24,7 +24,7 @@ public class Refrigerator extends Product{
 
 	@Override
 	public String toString() {
-		return "Product [ProductNo=" + super.getProductNo() + 
+		return " [ProductNo=" + super.getProductNo() + 
 				", name=" + super.getName() + 
 				", price=" + super.getPrice() + 
 				", amount=" + super.getAmount() + 

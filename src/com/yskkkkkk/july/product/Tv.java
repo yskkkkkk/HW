@@ -34,7 +34,7 @@ public class Tv extends Product{
 
 	@Override
 	public String toString() {
-		return "ProductTest [productNo=" + super.getProductNo() + 
+		return " [productNo=" + super.getProductNo() + 
 				", name=" + super.getName() + 
 				", price=" + super.getPrice() + 
 				", amount=" + super.getAmount() + 
