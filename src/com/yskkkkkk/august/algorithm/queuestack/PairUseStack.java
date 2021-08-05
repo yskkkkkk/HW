@@ -1,4 +1,4 @@
-package com.yskkkkkk.august.algorithm;
+package com.yskkkkkk.august.algorithm.queuestack;
 
 import java.io.BufferedReader;
 import java.io.IOException;
