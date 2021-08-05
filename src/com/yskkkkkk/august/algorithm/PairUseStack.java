@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+//배운점 stack.size() 로 반복문을 돌리면 안된다. 초기에 사이즈 고정하는 int 필요 예외 테스트케이스에 대한 세심한 처리 
 public class PairUseStack {
 
 	public static void main(String[] args) throws IOException{
@@ -28,7 +29,7 @@ public class PairUseStack {
 					case '{':	sums[1]+=2;	break;
 					case '}':	sums[1]-=2;	break;
 					case '(':	sums[2]+=3;	break;
-					case ')':	sums[2]-=3;	break;
+					case ')':	sums[2]-=3;	break; 
 					case '<':	sums[3]+=4;	break;
 					case '>':	sums[3]-=4;	break;
 				}
