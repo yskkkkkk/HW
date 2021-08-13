@@ -5,107 +5,93 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// 혼자 짠 원본 시간 메모리 조금 아쉬움
+// 조원의 도움을 받아서 개선한 버전 
 public class Main_baekjoon_15686_치킨배달 {
 
-	private static Chicken[] chickens;
-	private static Chicken[] result;
 	private static int[][] town;
-	private static int n;
-	private static int m;
+	private static Place[] chickens;
+	private static Place[] homes;
+	private static Place[] result;
+	private static int n, m;
 	private static int min = Integer.MAX_VALUE;
-	private static int chickenCount;
-	
-	public static void main(String[] args) throws IOException{
-		
+
+	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
+
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
-		
-		town = new int[n+1][n+1];
-		
+		result = new Place[m];
+
+		town = new int[n + 1][n + 1];
+
+		int homeCount = 0;
+		int chickenCount = 0;
 		for (int i = 1; i <= n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 1; j <= n; j++) {
 				town[i][j] = Integer.parseInt(st.nextToken());
-				if (town[i][j] == 2) chickenCount++;
+				if (town[i][j] == 1) homeCount++;
+				else if (town[i][j] == 2) chickenCount++;
 			}
 		}
 		br.close();
-		result = new Chicken[chickenCount-m];
 		
-		chickens = new Chicken[chickenCount];
-		int index = 0;
-		
+		homes = new Place[homeCount];
+		chickens = new Place[chickenCount];
+
+		int homeIndex = 0;
+		int chickenIndex = 0;
 		for (int i = 1; i <= n; i++) {
 			for (int j = 1; j <= n; j++) {
-				if (town[i][j] == 2) {
-					chickens[index++] = new Chicken(i, j); 
-				}
+				if (town[i][j] == 1) homes[homeIndex++] = new Place(i, j);
+				else if (town[i][j] == 2) chickens[chickenIndex++] = new Place(i, j);
 			}
 		}
 		makeCombination(0, 0);
-		
+
 		System.out.println(min);
 	}
-	
+
 	private static void makeCombination(int count, int start) {
-		if (count == chickenCount-m) {
+		if (count == m) {
 			min = Math.min(min, calculator(result));
 			return;
 		}
 		for (int i = start; i < chickens.length; i++) {
 			result[count] = chickens[i];
-			makeCombination(count+1, i+1);
+			makeCombination(count + 1, i + 1);
 		}
 	}
-	
-	private static int calculator(Chicken[] closed) {
-		int[][] townCopy = new int[n+1][n+1];
-		Chicken[] remains = new Chicken[m];
-		int index = 0;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= n; j++) {
-				townCopy[i][j] = town[i][j];
-				for (int k = 0; k < closed.length; k++) {
-					if (i == closed[k].getR() && j == closed[k].getS()) townCopy[i][j] = 0;
-				}
-				if (townCopy[i][j] == 2) {
-					remains[index++] = new Chicken(i, j);
-				}
-			}
-		}
-		
+
+	private static int calculator(Place[] remainChickens) {
 		int sum = 0;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= n; j++) {
-				if (townCopy[i][j]==1) {
-					int number = Integer.MAX_VALUE;
-					for (int k = 0; k < remains.length; k++) {
-						number = Math.min(number, Math.abs(i-remains[k].getR())+Math.abs(j-remains[k].getS()));
-					}
-					sum += number;
-				}
+		
+		for (Place p1 : homes) {
+			int number = Integer.MAX_VALUE;
+			for (Place p2 : remainChickens) {
+				number = Math.min(number, Math.abs(p1.getR()-p2.getR()) + Math.abs(p1.getS()-p2.getS()));  
 			}
+			sum += number;
 		}
+
 		return sum;
 	}
-	
-	private static class Chicken{
+
+	private static class Place {
 		private int r;
 		private int s;
 
 		public int getR() {
 			return r;
 		}
-		
+
 		public int getS() {
 			return s;
 		}
 
-		public Chicken(int r, int s) {
+		public Place(int r, int s) {
 			super();
 			this.r = r;
 			this.s = s;
@@ -115,6 +101,5 @@ public class Main_baekjoon_15686_치킨배달 {
 		public String toString() {
 			return "Chicken [r=" + r + ", s=" + s + "]";
 		}
-		
 	}
 }
