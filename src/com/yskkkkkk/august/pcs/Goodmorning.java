@@ -9,7 +9,7 @@ public class Goodmorning {
 	static boolean[] selected = new boolean[N];
 	static int[] result = new int[R];
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 
 		System.out.println("----permutation----");
 		permutation(0);
