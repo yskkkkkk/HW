@@ -6,55 +6,44 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main_백준_빵집 {
+	
+	static char[][] map;
+	static int r;
+	static int c;
 
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int r = Integer.parseInt(st.nextToken());
-		int c = Integer.parseInt(st.nextToken());
-		int[][] map = new int[r][c];
+		r = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
 		
-		for (int i = 0; i < r; i++) {
-			String input = br.readLine();
-			for (int j = 0; j < c; j++) {
-				map[i][j] = input.charAt(j) == '.' ? 0 : -1;
-			}
+		map = new char[r][c];
+		for(int i=0; i<r; i++) {
+			map[i] = br.readLine().toCharArray();
 		}
-		br.close();
-		
-		for (int i = 0; i < r; i++) {
-			int rIndex = i;
-			int cIndex = 0;
-			map[rIndex][cIndex] = i+1;
-			while (cIndex<c-1) {
-				if (rIndex-1 >= 0 && map[rIndex-1][cIndex+1] == 0) {
-					map[rIndex-1][cIndex+1] = i+1;
-					rIndex--;
-					cIndex++;
-				} else if (map[rIndex][cIndex+1] == 0) {
-					map[rIndex][cIndex+1] = i+1;
-					cIndex++;
-				} else if (rIndex+1 < r && map[rIndex+1][cIndex+1] == 0) {
-					map[rIndex+1][cIndex+1] = i+1;
-					rIndex++;
-					cIndex++;
-				} else {
-					for (int j = 0; j < r; j++) {
-						for (int k = 0; k < c; k++) {
-							if (map[j][k] == i+1) map[j][k] = 0;
-						}
-					}
-					break;
-				}
-			}
+		int result = 0;
+		for(int i=0; i<r; i++) {
+			if(check(i, 0))	result++;			
 		}
 		
-		int count = 0;
-		for (int i = 0; i < r; i++) {
-			if (map[i][c-1] != 0) count++; 
+		System.out.println(result);
+	}
+
+	public static boolean check(int x, int y) {
+		map[x][y] = '-';
+		
+		if(y == c-1) return true;
+		
+		if(x > 0 && map[x-1][y+1] == '.') {
+			if(check(x-1, y+1)) return true;
 		}
-		
-		System.out.println(count);
-		
+		if(map[x][y+1] == '.') {
+			if(check(x, y+1)) return true;
+		}
+		if(x+1 < r && map[x+1][y+1] == '.') {
+			if(check(x+1, y+1)) return true;
+		}
+		return false;
 	}
 }
+
